@@ -1,0 +1,70 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Google Tasks API",
+    "version": "1.0.0",
+    "description": "Access and manage a user's Google Tasks."
+  },
+  "servers": [
+    {
+      "url": "https://tasks.googleapis.com/tasks/v1"
+    }
+  ],
+  "paths": {
+    "/users/@me/lists": {
+      "get": {
+        "operationId": "listTaskLists",
+        "summary": "List task lists",
+        "responses": {
+          "200": {
+            "description": "A list of task lists."
+          }
+        }
+      }
+    },
+    "/lists/{tasklist}/tasks": {
+      "get": {
+        "operationId": "listTasks",
+        "summary": "List tasks in a task list",
+        "parameters": [
+          {
+            "name": "tasklist",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of tasks."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+            "tokenUrl": "https://oauth2.googleapis.com/token",
+            "scopes": {
+              "https://www.googleapis.com/auth/tasks": "View and manage your tasks"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": [
+        "https://www.googleapis.com/auth/tasks"
+      ]
+    }
+  ]
+}
